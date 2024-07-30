@@ -21,7 +21,7 @@ export interface ModuleItem {
   // 模块描述
   description?: string;
   // 模块在第一二顺位时展示的组件
-  component?: React.JSX.Element;
+  component?: JSX.Element;
   // 模块在非一二顺位时只展示icon
   icon?: string;
   operates?: ModuleOperate[];

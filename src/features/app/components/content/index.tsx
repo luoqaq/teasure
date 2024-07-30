@@ -44,7 +44,7 @@ export default function Content() {
   return (
     <article
       className="w-full p-4 pt-0"
-      style={{ height: 'calc(100vh - 60px)' }}
+      style={{ height: 'calc(100vh - 50px)' }}
     >
       <ModuleBox module={currentModule} className="w-full h-full" />
     </article>

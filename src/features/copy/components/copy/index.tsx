@@ -87,7 +87,7 @@ const Copy = () => {
               key={item.id}
               className={`${itemWidthClass} flex justify-between`}
             >
-              <div className="grow pr-4 py-2 border-t border-slate-200[.8]">
+              <div className="grow pl-2 pr-4 py-2 border-t border-slate-200[.8]">
                 {item.type === CopyCatchType.image ? (
                   <img
                     src={`data:image/jpeg;base64,${item.content}`}

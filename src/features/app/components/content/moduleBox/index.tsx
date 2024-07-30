@@ -38,7 +38,7 @@ export default function ModuleBox(props: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent style={{ height: 'calc(100% - 60px)' }}>
+      <CardContent style={{ height: 'calc(100% - 80px)' }}>
         {module.component}
       </CardContent>
     </Card>
