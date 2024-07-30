@@ -18,8 +18,8 @@ export default function ModuleBox(props: Props) {
 
   return (
     <Card className={className}>
-      <CardHeader className="justify-between items-center">
-        <CardTitle>{module.name}</CardTitle>
+      <CardHeader className="flex flex-row justify-between items-center">
+        <CardTitle className="text-md">{module.name}</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Ellipsis className="cursor-pointer" size={20} />
