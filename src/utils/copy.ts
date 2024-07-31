@@ -68,7 +68,7 @@ export const useListenClipboardChange = (
     console.log('startWatch', unlistenClipboardChange.current);
 
     unlistenTextUpdate.current = await onTextUpdate((newText: string) => {
-      console.log('newText', newText);
+      // console.log('newText', newText);
       const now = Date.now();
       // 做1s内防抖
       if (lastClipboardTime + DebounceGap > now) {
@@ -159,10 +159,9 @@ export const useSaveClipboardToLocal = () => {
     if (!copyCatchList?.length) {
       return;
     }
-    console.log('saveClipboardToLocal', copyCatchList);
     saveToLocal(LocalTextFIlePath, JSON.stringify(copyCatchList))
-      .then(res => {
-        console.log('saveClipboardToLocal', res);
+      .then(() => {
+        console.log('saveClipboardToLocal success');
       })
       .catch(err => {
         console.log('saveClipboardToLocal Error', err);

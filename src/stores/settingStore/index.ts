@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { CopyCatchTimeType, SettingCopyConfig } from '@/typesAndStatics/copy';
+import { readFromLocal } from '@/utils/setting';
 
 interface SettingStore {
   // 文件存储位置
@@ -15,20 +16,32 @@ interface SettingStore {
   changeCopyConfig: (config: SettingCopyConfig) => void;
 }
 
+const FilePathSetting = 'setting.txt';
+
 /**
  * 系统设置Store
  */
 export const useSettingStore = create<SettingStore>(set => ({
   filePath: '',
-  hotKey: 'Ctrl+Alt',
+  hotKey: 'Ctrl+Shift+Q',
   copyConfig: {
-    hotKey: 'Ctrl+Alt+C',
+    hotKey: 'Ctrl+Shift+C',
     catchTimeType: CopyCatchTimeType.week,
     catchPath: '',
   },
-  init: () => {
-    //
-    set({});
+  init: async () => {
+    // 读取文件
+    const file = await readFromLocal(FilePathSetting);
+    if (file) {
+      try {
+        const data = JSON.parse(file);
+        set({
+          filePath: data.filePath,
+          hotKey: data.hotKey,
+          copyConfig: data.copyConfig,
+        });
+      } catch (error) {}
+    }
   },
   changeFilePath: (path: string) => set({ filePath: path }),
   changeHotKey: (key: string) => set({ hotKey: key }),

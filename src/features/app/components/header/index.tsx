@@ -1,6 +1,7 @@
 'use client';
 
 import { ModeToggle } from './theme';
+import Setting from './setting';
 import { useModuleManageStore } from '@/stores/moduleManageStore';
 import { ModuleType } from '@/typesAndStatics/moduleManage';
 
@@ -22,9 +23,9 @@ export default function Headr() {
   return (
     <header className="flex justify-between items-center h-12 px-4">
       <div>
-        {sortedModules.map((moduleType, index) => (
+        {sortedModules.map(moduleType => (
           <button
-            key={index}
+            key={moduleType}
             onClick={() => changeSelectedModule(moduleType)}
             className={`${
               selectedModule === moduleType
@@ -36,7 +37,10 @@ export default function Headr() {
           </button>
         ))}
       </div>
-      <ModeToggle />
+      <div>
+        <Setting />
+        <ModeToggle />
+      </div>
     </header>
   );
 }

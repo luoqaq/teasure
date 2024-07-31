@@ -6,18 +6,16 @@ import {
   useSaveClipboardToLocal,
 } from '@/utils/copy';
 import { useCopyStore } from '@/stores/copyStore';
-import { getAppInstallPath } from '@/utils/setting';
+import { useHotKey, usePreventExitApp } from '@/utils/setting';
 
 export default function Home() {
   const { setCopyCatch, init } = useCopyStore(state => state);
 
-  useEffect(() => {
-    console.log('home Render');
-    init();
+  useHotKey();
+  usePreventExitApp();
 
-    getAppInstallPath().then(path => {
-      console.log(path);
-    });
+  useEffect(() => {
+    init();
   }, []);
 
   useListenClipboardChange(copyData => {

@@ -25,6 +25,15 @@
       },
       "path": {
         "all": true
+      },
+      "globalShortcut": {
+        "all": true
+      },
+      "app": {
+        "all": true
+      },
+      "window": {
+        "all": true
       }
     },
     "bundle": {

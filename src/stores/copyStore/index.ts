@@ -28,7 +28,6 @@ export const useCopyStore = create<CopyStore>(set => ({
   init: async () => {
     // 从本地加载
     const data = await readFromLocal(LocalTextFIlePath);
-    console.log('从本地架子啊', data);
     if (!data) {
       return;
     }

@@ -3,7 +3,11 @@ import { Clipboard, X } from 'lucide-react';
 import dayjs from 'dayjs';
 import { Input } from '@/components/ui/input';
 import { useCopyStore } from '@/stores/copyStore';
-import { CopyCatchType, CopyCatchTypes } from '@/typesAndStatics/copy';
+import {
+  CopyCatchItem,
+  CopyCatchType,
+  CopyCatchTypes,
+} from '@/typesAndStatics/copy';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { copyToClipboard } from '@/utils/copy';
 import { useToast } from '@/components/ui/use-toast';
@@ -58,6 +62,21 @@ const Copy = () => {
     return 'w-1/3 pr-6 nth-child(3n):pr-0';
   }, [windowSize]);
 
+  const handleCopy = (item: CopyCatchItem) => {
+    // 复制到剪切板
+    copyToClipboard(item.content, item.type)
+      .then(() => {
+        toast({
+          title: '复制成功',
+        });
+      })
+      .catch(() => {
+        toast({
+          title: '复制失败',
+        });
+      });
+  };
+
   return (
     <div className="h-full">
       <header className="flex items-center justify-between">
@@ -85,9 +104,13 @@ const Copy = () => {
           {showedList.map(item => (
             <div
               key={item.id}
-              className={`${itemWidthClass} flex justify-between`}
+              className={`${itemWidthClass} flex justify-between cursor-pointer`}
+              onClick={() => {
+                // 复制到剪切板
+                handleCopy(item);
+              }}
             >
-              <div className="grow pl-2 pr-4 py-2 border-t border-slate-200[.8]">
+              <div className="grow pl-2 pr-4 py-4 border-t border-slate-200[.8]">
                 {item.type === CopyCatchType.image ? (
                   <img
                     src={`data:image/jpeg;base64,${item.content}`}
@@ -96,26 +119,17 @@ const Copy = () => {
                     alt="图片"
                   />
                 ) : (
-                  <p className="text-sm break-all">{item.content}</p>
+                  <p className="text-sm max-h-24 break-all overflow-hidden text-ellipsis">
+                    {item.content}
+                  </p>
                 )}
               </div>
-              <div className="flex flex-col justify-between py-2 border-t border-slate-200[.8]">
+              <div className="flex flex-col justify-between py-4 border-t border-slate-200[.8]">
                 <div className="whitespace-nowrap text-right">
                   <button
                     onClick={() => {
                       // 复制到剪切板
-                      copyToClipboard(item.content, item.type)
-                        .then(() => {
-                          toast({
-                            title: '复制成功',
-                          });
-                        })
-                        .catch(() => {
-                          toast({
-                            title: '复制失败',
-                            variant: 'destructive',
-                          });
-                        });
+                      handleCopy(item);
                     }}
                     className="mr-4 opacity-60"
                   >
@@ -131,7 +145,7 @@ const Copy = () => {
                   </button>
                 </div>
                 <p className="text-xs opacity-50 text-right whitespace-nowrap mt-2">
-                  {dayjs(item.crateTime).format('YYYY-MM-DD HH:mm:ss')}
+                  {dayjs(item.crateTime).format('MM-DD HH:mm')}
                 </p>
               </div>
             </div>
