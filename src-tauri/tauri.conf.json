@@ -7,12 +7,25 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "teasure",
+    "productName": "treasure",
     "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "notification": {
+        "all": true
+      },
+      "clipboard": {
+        "all": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["$APPDATA/*", "$RESOURCE/*"]
+      },
+      "path": {
+        "all": true
+      }
     },
     "bundle": {
       "active": true,
@@ -29,7 +42,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.luo.teasure",
+      "identifier": "com.luo.treasure",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
