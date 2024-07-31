@@ -6,6 +6,17 @@ export default defineConfig({
   runtime: {
     router: true,
   },
+  source: {
+    mainEntryName: 'index',
+  },
+  html: {
+    disableHtmlFolder: true,
+  },
+  output: {
+    distPath: {
+      html: '',
+    },
+  },
   plugins: [
     appTools({
       bundler: 'experimental-rspack', // Set to 'experimental-rspack' to enable rspack ⚡️🦀
