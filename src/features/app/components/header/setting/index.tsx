@@ -1,4 +1,5 @@
 import { Bolt, Edit } from 'lucide-react';
+import { useShallow } from 'zustand/react/shallow';
 import {
   Dialog,
   DialogTrigger,
@@ -10,7 +11,12 @@ import { useSettingStore } from '@/stores/settingStore';
 import { Label } from '@/components/ui/label';
 
 export default () => {
-  const { hotKey, copyConfig } = useSettingStore();
+  const { hotKey, copyConfig } = useSettingStore(
+    useShallow(state => ({
+      hotKey: state.hotKey,
+      copyConfig: state.copyConfig,
+    })),
+  );
 
   const settingList = [
     {

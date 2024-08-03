@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Clipboard, X } from 'lucide-react';
 import dayjs from 'dayjs';
+import { useShallow } from 'zustand/react/shallow';
 import { Input } from '@/components/ui/input';
 import { useCopyStore } from '@/stores/copyStore';
 import {
@@ -14,7 +15,12 @@ import { useToast } from '@/components/ui/use-toast';
 import { useWindowSize } from '@/hooks/useWindowSize';
 
 const Copy = () => {
-  const { copyCatchList, deleteCopyCatch } = useCopyStore(state => state);
+  const { copyCatchList, deleteCopyCatch } = useCopyStore(
+    useShallow(state => ({
+      copyCatchList: state.copyCatchList,
+      deleteCopyCatch: state.deleteCopyCatch,
+    })),
+  );
 
   const { toast } = useToast();
 

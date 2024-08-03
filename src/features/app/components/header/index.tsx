@@ -1,5 +1,6 @@
 'use client';
 
+import { useShallow } from 'zustand/react/shallow';
 import { ModeToggle } from './theme';
 import Setting from './setting';
 import { useModuleManageStore } from '@/stores/moduleManageStore';
@@ -18,7 +19,13 @@ const ModuleMap = {
 
 export default function Headr() {
   const { selectedModule, changeSelectedModule, sortedModules } =
-    useModuleManageStore(state => state);
+    useModuleManageStore(
+      useShallow(state => ({
+        selectedModule: state.selectedModule,
+        changeSelectedModule: state.changeSelectedModule,
+        sortedModules: state.sortedModules,
+      })),
+    );
 
   return (
     <header className="flex justify-between items-center h-12 px-4">

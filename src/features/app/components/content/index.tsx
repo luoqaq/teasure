@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
+import { useShallow } from 'zustand/react/shallow';
 import ModuleBox from './moduleBox';
 import { useModuleManageStore } from '@/stores/moduleManageStore';
 import { ModuleType, ModuleItem } from '@/typesAndStatics/moduleManage';
@@ -8,8 +9,12 @@ import Copy from '@/features/copy/components/copy';
 import Todo from '@/features/todo/components/todo';
 
 export default function Content() {
-  const { selectedModule } = useModuleManageStore(state => state);
-  const { clearCopyCatch } = useCopyStore(state => state);
+  const { selectedModule } = useModuleManageStore(
+    useShallow(state => ({ selectedModule: state.selectedModule })),
+  );
+  const { clearCopyCatch } = useCopyStore(
+    useShallow(state => ({ clearCopyCatch: state.clearCopyCatch })),
+  );
 
   const ModuleMap: Record<ModuleType, ModuleItem> = {
     [ModuleType.Copy]: {
